@@ -1,16 +1,33 @@
-{% extends 'shop/base.html' %}
-
-{% block title %}Оформление заказа{% endblock %}
-
-{% block content %}
-    <a href="{% url 'index' %}">Вернуться в каталог</a>
-    <h1>Оформление заказа</h1>
-    <div class="panel">
-        <p><strong>{{ product.name }}</strong> · {{ product.price }} ₽</p>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>Покупка</title>
+</head>
+<body>
+    <div>
+        <h3>Покупка</h3>
+        <p>{{ product.name }} — {{ product.price }} ₽</p>
         <form method="post">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button class="button" type="submit">Оформить заказ</button>
+            {{ form.non_field_errors }}
+            <table>
+                <tr>
+                    <td><p><label for="{{ form.person.id_for_label }}">Введите своё имя</label></p></td>
+                    <td>{{ form.person }}{{ form.person.errors }}</td>
+                </tr>
+                <tr>
+                    <td><p><label for="{{ form.address.id_for_label }}">Введите адрес доставки</label></p></td>
+                    <td>{{ form.address }}{{ form.address.errors }}</td>
+                </tr>
+                <tr>
+                    <td><p><label for="{{ form.promo_code.id_for_label }}">Промокод (необязательно)</label></p></td>
+                    <td>{{ form.promo_code }}{{ form.promo_code.errors }}</td>
+                </tr>
+                <tr><td><input type="submit" value="Отправить" /></td><td></td></tr>
+            </table>
         </form>
     </div>
-{% endblock %}
+</body>
+</html>

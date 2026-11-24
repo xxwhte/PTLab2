@@ -1,32 +1,30 @@
-{% extends 'shop/base.html' %}
-
-{% block content %}
-    <h1>Магазин детских игрушек</h1>
-    {% for message in messages %}
-        <p class="notice" role="status">{{ message }}</p>
-    {% endfor %}
-    <div class="panel">
-        {% if products %}
-            <table>
-                <thead>
-                    <tr>
-                        <th scope="col">Игрушка</th>
-                        <th scope="col">Цена</th>
-                        <th scope="col">Заказ</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for product in products %}
-                        <tr>
-                            <td>{{ product.name }}</td>
-                            <td>{{ product.price }} ₽</td>
-                            <td><a class="button" href="{% url 'buy' product.pk %}">Купить</a></td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        {% else %}
-            <p>В каталоге пока нет игрушек.</p>
-        {% endif %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>Товары</title>
+</head>
+<body>
+    <div>
+        <h3>Список</h3>
+        {% for message in messages %}
+            <p role="status">{{ message }}</p>
+        {% endfor %}
+        <table>
+            <tr>
+                <td><p>Наименование</p></td>
+                <td><p>Цена</p></td>
+                <td></td>
+            </tr>
+            {% for p in products %}
+                <tr>
+                    <td><p>{{ p.name }}</p></td>
+                    <td><p>{{ p.price }}</p></td>
+                    <td><p><a href="{% url 'buy' p.pk %}">Купить</a></p></td>
+                </tr>
+            {% endfor %}
+        </table>
     </div>
-{% endblock %}
+</body>
+</html>
